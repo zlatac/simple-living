@@ -1,0 +1,362 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="https://unpkg.com/vuex"></script>
+		<style>
+			body {
+				position: relative;
+				min-height: calc(100vh - 120px);
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
+				background-color: purple;
+			}
+			.go-back {
+				position:absolute;
+				top: 3%;
+				left: 2%;
+			}
+			#logo {
+				display: none;
+			}
+			app-register {
+				--width: 100%;
+				--height: 100%;
+				--background-color: #e6e6e6;
+				--box-shadow: 9px 9px 16px #d5d5d5, -9px -9px 16px #eee;
+			}
+		</style>
+	</head>
+	<body>
+		<app-navigate-back></app-navigate-back>
+		<router-view></router-view>
+
+		<template id="lander">
+			<h1>Lander</h1>
+		</template>
+		<template id="home">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+			<style>
+				.containers {
+					width: 100%;
+					height: 100%;
+					position: relative;
+					background: lightgrey;
+				}
+				.image {
+					width: 100%;
+					height: 100%;
+					background-image: url(https://images.pexels.com/photos/1054974/pexels-photo-1054974.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260);
+					background-position: center;
+					background-size: cover;
+					filter: blur(.1em)
+					
+				}
+				.component {
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					position: absolute;
+					display: flex;
+					flex-direction: column;
+					background: transparent;
+					text-align: center;
+					color: #fff
+				}
+				h3 {
+					flex-basis: 117px;
+					/* margin-top: 34%; */
+				}
+				section {
+					flex-basis: auto;
+				}
+				button.btn {
+					cursor: pointer;
+					background-color: #ac18d6;
+					color: #fff;
+					margin-top: 16%;
+				}
+				button.btn:hover, button.btn:focus {
+					background-color: #8616a5;
+				}
+				h5 {
+					font-weight: 600;
+					margin-top: 28%;
+					letter-spacing: .03em;
+					text-transform: capitalize;
+				}
+				@media screen and (min-width: 400px) {
+					h3 {
+						margin-top: 86px;
+					}
+					h5 {
+						margin-top: 78px;
+					}
+					.image {
+						filter: blur(1.1em);
+					}
+					button.btn {
+						margin-top: 150px
+					}
+				}
+			</style>
+			<div class="containers animated fadeIn">
+				<div class="image"></div>
+				<div class="component">
+					<h3>Slash The Rent</h1>
+					<app-logo color="white"></app-logo>
+					<section>
+						<h5>The perfect roommate finds you</h3>
+						<button class="waves-effect waves-light btn">Find a Roommate</button>
+					</section>
+				</div>
+			</div>
+		</template>
+		<template id="pre-register">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+			<style>
+				.container {
+					--primary-background: #e1e1e1;
+					height: 100%;
+					display: flex;
+					flex-direction: column;
+					text-align: center;
+					background-color: var(--primary-background);
+					padding: 0 5%;
+				}
+				button {
+					width: 200px;
+					border: 0;
+					background-color: var(--primary-background);
+					border-style: none;
+					box-shadow: 9px 9px 16px #cacaca, -9px -9px 16px #eee;
+					height: 100px;
+					border-radius: 8px;
+					margin: 0 auto;
+					margin-top: 10px;
+					text-transform: capitalize;
+					cursor: pointer;
+				}
+				button:focus, button:hover {
+					box-shadow: 0px 0px 4px #cacaca, -9px -9px 16px #eee;
+				}
+				ol {
+					text-align: left;
+					margin: 0;
+				}
+				li{
+					margin: 5px 0;
+				}
+				.invite-only::before, .invite-only::after {
+					content: "___________";
+					margin: 0 8px;
+				}
+				.invite-only {
+					text-transform: capitalize;
+				}
+				h1 {
+					margin-bottom: 0;
+					margin-top: 5px
+				}
+				@media screen and (min-width: 400px) {
+					ol {
+						margin-left: 36%;
+						margin-bottom: 5%;
+						margin-top: 50px;
+					}
+				}
+			</style>
+			<div class="container animated slideInRight">
+				<h1>How?</h1>
+				<ol>
+					<li>Login with your Linkedn account.</li>
+					<li>Set up criterias for your perfect match.</li>
+					<li>Continue with your work/life, we'll handle the rest.</li>
+					<li>Receive notifications of potential roommates that meet your criterias.</li>
+					<li>Match the perfect roommate & start saving on rent.</li>
+				</ol>
+				<p class="invite-only">Invite only</p>
+				<p>We value the great quality of professionals on our platform and screen all members to strengthen our community.</p>
+				<button>Get invited today</button>
+			</div>
+		</template>
+		<template id="post-register">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+			<style>
+				.container {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					margin: 0 5%;
+					color: #fff
+				}
+				p {
+					text-align: center;
+				}
+				app-logo {
+					margin-top: 100px;
+				}
+			</style>
+			<div class="container animated bounce">
+				<h1>Congratulations!!</h1>
+				<p>We have received your invitation request to be a member of slash the rent.</p>
+				<p>Please be patient while we process your request. You will receive an invitation response via email/text.</p>
+				<app-logo color="white"></app-logo>
+				<!-- <button>Share with a friend</button> -->
+			</div>
+			
+		</template>
+		<template id="app-registeration">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+			<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script> -->
+			<style>
+				.container {
+					width: var(--width);
+					height: var(--height);
+					background-color: var(--background-color);
+				}
+				h1 {
+					margin-top: 0;
+					text-align: center;
+				}
+				.my-card {
+					margin: 0 7%;
+					height: 300px;
+					box-shadow: var(--box-shadow);
+					display: flex;
+					flex-direction: column;
+				}
+				button {
+					width: 90px;
+					height: 40px;
+					border: 0;
+					background-color: inherit;
+					box-shadow: 6px 7px 6px #c6c6c6, -6px -7px 6px #ececec;
+					text-transform: capitalize;
+					cursor: pointer;
+					border-radius: 2px;
+				}
+				button:focus, button:hover {
+					box-shadow: 0px 4px 9px #cacaca, -4px -2px 9px #fdfdfd;
+				}
+				app-progress {
+					margin-bottom: 40px;
+					padding: 0px 41px;
+					margin-top: 10px;
+				}
+				.buttons {
+					margin: 20px 0;
+					display: flex;
+					justify-content: center;
+				}
+				input, select {
+					border: 0;
+					background:#d5d5d5;
+					box-shadow: var(--box-shadow);
+					margin: 20px;
+					border-radius: 20px;
+					height: 28px;
+					padding-left: 20px;
+					width: 80%;
+					align-self: center;
+				}
+				div[name="city"] {
+					display: flex;
+					flex-direction: column;
+				}
+				.hide, div[name="city"].hide {
+					display: none
+				}
+				@media screen and (min-width: 1080px) {
+					.my-card {
+						margin: 5% 34%;
+					}
+				}
+				@media screen and (min-width: 500px)and (max-width: 1024px) {
+					.my-card {
+						margin: 5% 25%;
+					}
+				}
+			</style>
+			<div class="container">
+				<h1>Get Invited</h1>
+				<div class="my-card animated slideInUp">
+					<app-progress current="3" max="5"></app-progress>
+					<input class="hide" type="text" name="full-name" placeholder="Full Name">
+					<input class="hide" type="email" name="email" placeholder="Email">
+					<select name="industry" class="hide" placeholder="Industry">
+						<option value="" disabled selected>Industry</option>
+						<option value="tech">Information Technology</option>
+						<option value="finance">Finance</option>
+						<option value="service">Service</option>
+						<option value="health">Health</option>
+					</select>
+					<select name="living-status" class="hide" placeholder="Living status">
+						<option value="" disabled selected>Living Status</option>
+						<option value="renting">Renting</option>
+						<option value="home owner">Home owner</option>
+					</select>
+					<div class="hide" name="city" placeholder="City">
+						<select>
+							<option value="" disabled selected>City</option>
+							<option value="toronto">Toronto</option>
+							<option value="newyork">New York</option>
+							<option value="mississauga">Mississauga</option>
+							<option value="kitchener">Kitchener</option>
+							<option value="other">Other</option>
+						</select>
+						<input class="hide animated fadeInDown" type="text" name="city-other" placeholder="Enter your city">
+					</div>
+					<div class="buttons">
+						<button name="skip" class="hide">Skip</button>
+						<button name="next" class="animated zoomIn">Next</button>
+					</div>
+				</div>
+			</div>
+		</template>
+		<template id="progress">
+			<style>
+				.progress {
+					display: grid;
+					grid-template-columns: repeat(auto-fit, minmax(25px, 1fr));
+					grid-template-rows: 100%;
+					width: 100%;
+					height: 10px;
+					column-gap: 3%;
+				}
+				.item {
+					height: 100%;
+					width: 100%;
+					background-color: lime;
+					border-radius: 10px;
+					box-shadow: 5px 8px 9px #d5d5d5, -5px -2px 9px #fff;
+				}
+				.item.grey {
+					background-color: lightgrey;
+				}
+			</style>
+			<div class="progress">
+				<div class="item"></div>
+			</div>
+		</template>
+		<svg id="logo" version="1.1" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="80 67 58 167">
+			<g>
+				<g id="strokes" transform="matrix(.20042 0 0 .17946 -131.56 37.772)">
+					<g transform="translate(-7.921)" fill="#ac18d6" stroke="#1e1e1e" stroke-width="2.0203" class="change-fill">
+						<path d="m905.58 883.57v-188.01l15.822 8.7051c8.7022 4.7878 140.98 78.252 293.95 163.25l278.13 154.55v49.506h-587.91z"></path>
+						<path d="m1199.1 799.12-293.41-162.92-0.038-48.992c-0.021-26.946-0.7368-48.992-1.5903-48.992-0.8536 0-12.804 12.748-26.556 28.328-17.071 19.341-26.033 28.032-28.248 27.396-24.722-7.1014-39.941-12.017-41.381-13.364-0.9763-0.91384 8.9807-13.74 22.183-28.575 25.42-28.563 367.8-377.44 370.41-377.44 0.8456 0 77.727 77.959 170.85 173.24 161.09 164.83 222.63 230.19 219.55 233.18-1.6271 1.5798-45.058 14.346-45.665 13.423-3.4377-5.2238-48.417-54.165-49.78-54.165-1.1537 0-2.0868 81.95-2.4013 210.9l-0.5144 210.9z"></path>
+						<path d="m1409.2 333.97-42.892-44.277-0.039-38.891-0.04-38.891h-12.122v-24.244h113.14v24.244h-14.097l-1.055 166.34z"></path>
+					</g>
+				</g>
+			</g>
+		</svg>
+		<script type="module" src="index.mjs"></script>
+	</body>
+</html>
