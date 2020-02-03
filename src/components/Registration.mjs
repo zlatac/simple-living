@@ -54,12 +54,15 @@ export default class Registration extends HTMLElement {
 		let elem;
 		if (this.isLastIndex) {
 			console.log('we are submitting data', this.formData.map(i => i.value))
-			const form = new FormData()
-			this.formData.forEach(i => form.append(i.name, i.value))
-			// await fetch('http://localhost:8000/api', {
-			// 	body: form,
-			// 	method: 'POST'
-			// })
+			const form = {}
+			this.formData.forEach(i => form[i.name] = i.value)
+			await fetch('/api', {
+				body: JSON.stringify(form),
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				}
+			})
 			location.hash = '/post-register'
 			return
 		}
