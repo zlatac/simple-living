@@ -8,7 +8,8 @@ export default class Registration extends HTMLElement {
 		},
 		{
 			name: 'email',
-			query: 'input[name="email"]'
+			query: 'input[name="email"]',
+			validate: true
 		},
 		{
 			name: 'industry',
@@ -19,7 +20,7 @@ export default class Registration extends HTMLElement {
 			query: '[name="city"]'
 		},
 		{
-			name: 'living status',
+			name: 'living_status',
 			query: '[name="living-status"]'
 		},
 	];
@@ -66,6 +67,17 @@ export default class Registration extends HTMLElement {
 			location.hash = '/post-register'
 			return
 		}
+		if (this.currentForm.name.includes('email')) {
+			const valid = this.currentForm.value.match(/.+@.+\..+/)
+			if (valid === null) {
+				elem = this.shadowRoot.querySelector(this.currentForm.query)
+				elem.classList.add('error', 'animated', 'shake')
+				setTimeout(() => {
+					elem.classList.remove('animated', 'shake')
+				}, 1000)
+				return
+			}
+		}
 		switch(this.nextForm.name) {
 			case 'email':
 				elem = this.shadowRoot.querySelector(this.nextForm.query)
@@ -82,13 +94,14 @@ export default class Registration extends HTMLElement {
 					this.setFormValue(event)
 					if (event.target.value === 'other') {
 						otherCity.classList.remove('hide')
-					} else {
+					}
+					if (event.target.value.toLowerCase().match(/toronto|montreal|kitchener|sauga/) !== null) {
 						otherCity.classList.add('hide')
 					}
 				})
 				otherCity.addEventListener('input', this.setFormValue.bind(this))
 				break;
-			case 'living status':
+			case 'living_status':
 				elem = this.shadowRoot.querySelector(this.nextForm.query)
 				elem.addEventListener('change', this.setFormValue.bind(this))
 				break;

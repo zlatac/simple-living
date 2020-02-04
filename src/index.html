@@ -71,7 +71,14 @@
 				}
 				h3 {
 					flex-basis: 117px;
-					/* margin-top: 34%; */
+					margin-top: 16%;
+					font-weight: 600;
+					text-transform: uppercase;
+					font-size: 32px;
+					letter-spacing: 0.5px;
+				}
+				h3, h5 {
+					text-shadow: rgba(23, 32, 38, 0.2) 0px 2px 10px, rgba(23, 32, 38, 0.2) 0px 2px 4px;
 				}
 				section {
 					flex-basis: auto;
@@ -80,18 +87,25 @@
 					cursor: pointer;
 					background-color: #ac18d6;
 					color: #fff;
-					margin-top: 16%;
+					margin-top: 40%;
+					width: 100%;
+					max-width: 340px;
+					height: auto;
+					padding: 11px;
+					font-size: 17px;
+					font-weight: 600;
 				}
 				button.btn:hover, button.btn:focus {
 					background-color: #8616a5;
 				}
 				h5 {
 					font-weight: 600;
-					margin-top: 28%;
+					margin-top: 21%;
 					letter-spacing: .03em;
 					text-transform: capitalize;
+					visibility: hidden;
 				}
-				@media screen and (min-width: 400px) {
+				@media screen and (min-width: 460px) {
 					h3 {
 						margin-top: 86px;
 					}
@@ -112,8 +126,8 @@
 					<h3>Slash The Rent</h3>
 					<app-logo color="white"></app-logo>
 					<section>
-						<h5>The perfect roommate finds you</h5>
-						<button class="waves-effect waves-light btn">Find a Roommate</button>
+						<!-- <h5>The perfect roommate finds you</h5> -->
+						<button class="waves-effect waves-light btn">Find the Perfect Roommate</button>
 					</section>
 				</div>
 			</div>
@@ -274,9 +288,15 @@
 				.hide, div[name="city"].hide {
 					display: none
 				}
+				.error {
+					background-color: #eaacac;
+				}
 				@media screen and (min-width: 1080px) {
 					.my-card {
 						margin: 5% 34%;
+					}
+					input, select {
+						height: 42px
 					}
 				}
 				@media screen and (min-width: 500px)and (max-width: 1024px) {
@@ -289,7 +309,7 @@
 				<h1>Get Invited</h1>
 				<div class="my-card animated slideInUp">
 					<app-progress current="3" max="5"></app-progress>
-					<input class="hide" type="text" name="full-name" placeholder="Full Name">
+					<input class="hide" type="text" name="full-name" placeholder="Name (First & Last)">
 					<input class="hide" type="email" name="email" placeholder="Email">
 					<select name="industry" class="hide" placeholder="Industry">
 						<option value="" disabled selected>Industry</option>
@@ -297,6 +317,7 @@
 						<option value="finance">Finance</option>
 						<option value="service">Service</option>
 						<option value="health">Health</option>
+						<option value="other">Other</option>
 					</select>
 					<select name="living-status" class="hide" placeholder="Living status">
 						<option value="" disabled selected>Living Status</option>
@@ -307,7 +328,7 @@
 						<select>
 							<option value="" disabled selected>City</option>
 							<option value="toronto">Toronto</option>
-							<option value="newyork">New York</option>
+							<option value="newyork">Montreal</option>
 							<option value="mississauga">Mississauga</option>
 							<option value="kitchener">Kitchener</option>
 							<option value="other">Other</option>
