@@ -12,6 +12,12 @@ export default class Registration extends HTMLElement {
 			validate: true
 		},
 		{
+			name: 'phone',
+			query: 'input[name="phone"]',
+			skip: true,
+			validate: true
+		},
+		{
 			name: 'industry',
 			query: 'select[name="industry"]'
 		},
@@ -32,6 +38,7 @@ export default class Registration extends HTMLElement {
 		}
 	];
 	nextButton = undefined;
+	skipButton = undefined;
 
 	constructor() {
 		super()
@@ -47,11 +54,13 @@ export default class Registration extends HTMLElement {
 		firstElement.addEventListener('input', this.setFormValue.bind(this))
 		this.setProgress()
 		this.nextButton = this.shadowRoot.querySelector('button[name="next"]')
+		this.skipButton = this.shadowRoot.querySelector('button[name="skip"]')
 		this.nextButton.classList.add('hide')
 		this.nextButton.addEventListener('click', this.goToNextForm.bind(this))
+		this.skipButton.addEventListener('click', this.goToNextForm.bind(this, true))
 	}
 
-	async goToNextForm() {
+	async goToNextForm(skip=false) {
 		let elem;
 		if (this.isLastIndex) {
 			console.log('we are submitting data', this.formData.map(i => i.value))
@@ -78,8 +87,23 @@ export default class Registration extends HTMLElement {
 				return
 			}
 		}
+		if (this.currentForm.name.includes('phone') && !skip) {
+			const valid = this.currentForm.value.match(/[0-9]+/)
+			if (valid === null) {
+				elem = this.shadowRoot.querySelector(this.currentForm.query)
+				elem.classList.add('error', 'animated', 'shake')
+				setTimeout(() => {
+					elem.classList.remove('animated', 'shake')
+				}, 1000)
+				return
+			}
+		}
 		switch(this.nextForm.name) {
 			case 'email':
+				elem = this.shadowRoot.querySelector(this.nextForm.query)
+				elem.addEventListener('input', this.setFormValue.bind(this))
+				break;
+			case 'phone':
 				elem = this.shadowRoot.querySelector(this.nextForm.query)
 				elem.addEventListener('input', this.setFormValue.bind(this))
 				break;
@@ -97,6 +121,7 @@ export default class Registration extends HTMLElement {
 					}
 					if (event.target.value.toLowerCase().match(/toronto|montreal|kitchener|sauga/) !== null) {
 						otherCity.classList.add('hide')
+						otherCity.value = ''
 					}
 				})
 				otherCity.addEventListener('input', this.setFormValue.bind(this))
@@ -106,6 +131,12 @@ export default class Registration extends HTMLElement {
 				elem.addEventListener('change', this.setFormValue.bind(this))
 				break;
 			default:
+		}
+
+		if (this.nextForm.skip) {
+			this.skipButton.classList.remove('hide')
+		} else {
+			this.skipButton.classList.add('hide')
 		}
 		const currentForm = this.shadowRoot.querySelector(this.currentForm.query)
 		const nextForm = this.shadowRoot.querySelector(this.nextForm.query)

@@ -268,7 +268,7 @@
 				.buttons {
 					margin: 20px 0;
 					display: flex;
-					justify-content: center;
+					justify-content: space-evenly;
 				}
 				input, select {
 					border: 0;
@@ -311,6 +311,7 @@
 					<app-progress current="3" max="5"></app-progress>
 					<input class="hide" type="text" name="full-name" placeholder="Name (First & Last)">
 					<input class="hide" type="email" name="email" placeholder="Email">
+					<input class="hide" type="tel" name="phone" placeholder="Phone (Whatsapp Notification)">
 					<select name="industry" class="hide" placeholder="Industry">
 						<option value="" disabled selected>Industry</option>
 						<option value="tech">Information Technology</option>
@@ -328,7 +329,7 @@
 						<select>
 							<option value="" disabled selected>City</option>
 							<option value="toronto">Toronto</option>
-							<option value="newyork">Montreal</option>
+							<option value="montreal">Montreal</option>
 							<option value="mississauga">Mississauga</option>
 							<option value="kitchener">Kitchener</option>
 							<option value="other">Other</option>
@@ -336,7 +337,7 @@
 						<input class="hide animated fadeInDown" type="text" name="city-other" placeholder="Enter your city">
 					</div>
 					<div class="buttons">
-						<button name="skip" class="hide">Skip</button>
+						<button name="skip" class="hide animated fadeInLeft">Skip</button>
 						<button name="next" class="animated zoomIn">Next</button>
 					</div>
 				</div>
