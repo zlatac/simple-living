@@ -1,47 +1,47 @@
 import utils from '../lib/utils.mjs'
 import Progress from './Progress.mjs'
 export default class Registration extends HTMLElement {
-	formData = [
-		{
-			name: 'name',
-			query: 'input[name="full-name"]'
-		},
-		{
-			name: 'email',
-			query: 'input[name="email"]',
-			validate: true
-		},
-		{
-			name: 'phone',
-			query: 'input[name="phone"]',
-			skip: true,
-			validate: true
-		},
-		{
-			name: 'industry',
-			query: 'select[name="industry"]'
-		},
-		{
-			name: 'city',
-			query: '[name="city"]'
-		},
-		{
-			name: 'living_status',
-			query: '[name="living-status"]'
-		},
-	];
-	index = 0;
-	childComponents = [
-		{
-			name: 'app-progress',
-			component: Progress
-		}
-	];
-	nextButton = undefined;
-	skipButton = undefined;
-
 	constructor() {
 		super()
+		this.formData = [
+			{
+				name: 'name',
+				query: 'input[name="full-name"]'
+			},
+			{
+				name: 'email',
+				query: 'input[name="email"]',
+				validate: true
+			},
+			{
+				name: 'phone',
+				query: 'input[name="phone"]',
+				skip: true,
+				validate: true
+			},
+			{
+				name: 'industry',
+				query: 'select[name="industry"]'
+			},
+			{
+				name: 'city',
+				query: '[name="city"]'
+			},
+			{
+				name: 'living_status',
+				query: '[name="living-status"]'
+			},
+		];
+		this.index = 0;
+		this.childComponents = [
+			{
+				name: 'app-progress',
+				component: Progress
+			}
+		];
+		this.nextButton = undefined;
+		this.skipButton = undefined;
+		
 		this.childComponents.forEach((item) => utils.defineCustomElements(item.component, item.name))
 		const template = document.querySelector('#app-registeration').innerHTML
 		const shadow = this.attachShadow({mode: 'open'})
@@ -87,7 +87,7 @@ export default class Registration extends HTMLElement {
 				return
 			}
 		}
-		if (this.currentForm.name.includes('phone') && !skip) {
+		if (this.currentForm.name.includes('phone') && skip !== true) {
 			const valid = this.currentForm.value.match(/[0-9]+/)
 			if (valid === null) {
 				elem = this.shadowRoot.querySelector(this.currentForm.query)

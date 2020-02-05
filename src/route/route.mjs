@@ -4,8 +4,6 @@ import PostRegistration from '../components/PostRegistration.mjs'
 import Registration from '../components/Registration.mjs'
 
 export default class RouterView extends HTMLElement {
-	routes = []
-
 	constructor() {
 		super()
 		this.routes = [
