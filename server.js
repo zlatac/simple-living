@@ -23,13 +23,6 @@ const databaseConnectionOptions = {
 
 console.log(databaseConnectionOptions)
 
-app.get('*',function(req,res,next){
-    if(req.headers['x-forwarded-proto']!='https' && process.env.NODE_ENV === 'production')
-        res.redirect(['https://', req.get('Host'), req.url].join(''))
-    else
-        next() /* Continue to other routes if we're not redirecting */
-})
-
 app.get('/', function (req, res) {
      res.sendFile(__dirname + '/src/index.html');
 });
@@ -63,19 +56,5 @@ app.post('/api', function (req, res) {
         
     });
 });
-
-// app.get('/ninja', function(req, res) {
-//     con.query("SELECT * FROM str_register limit 5", (err, results) => {
-//         try {
-//             if (err) {res.send(err); return;}
-//             res.send(results)
-//             res.status(200)
-//             con.close()
-//         } catch (error) {
-//             console.warn(new Error(error))
-//         }
-        
-//     });
-// })
 
 app.use(express.static(path.resolve(__dirname, 'src')));
