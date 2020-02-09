@@ -176,7 +176,8 @@
 				}
 				h1 {
 					margin-bottom: 0;
-					margin-top: 5px
+					margin-top: 5px;
+					font-size: 1.6em;
 				}
 				@media screen and (min-width: 400px) {
 					ol {
@@ -187,11 +188,11 @@
 				}
 			</style>
 			<div class="container animated slideInRight">
-				<h1>How?</h1>
+				<h1>Easy Steps To Finding Your Perfect Roommate</h1>
 				<ol>
-					<li>Login with your Linkedn account.</li>
-					<li>Set up criterias for your perfect match.</li>
-					<li>Continue with your work/life, we'll handle the rest.</li>
+					<li>Login with your Linkedln account.</li>
+					<li>Set up criterias to qualify your perfect match.</li>
+					<li> Continue with your daily activities, we'll handle the rest.</li>
 					<li>Receive notifications of potential roommates that meet your criterias.</li>
 					<li>Match the perfect roommate & start saving on rent.</li>
 				</ol>
@@ -291,6 +292,10 @@
 				.error {
 					background-color: #eaacac;
 				}
+				.error-message {
+					text-align: center;
+    			padding: 0 20px;
+				}
 				@media screen and (min-width: 1080px) {
 					.my-card {
 						margin: 5% 34%;
@@ -340,6 +345,7 @@
 						<button name="skip" class="hide animated fadeInLeft">Skip</button>
 						<button name="next" class="animated zoomIn">Next</button>
 					</div>
+					<div class="error-message hide">Hmm.. Something went wrong please submit again</div>
 				</div>
 			</div>
 		</template>

@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
+    "start:windows": "SET NODE_ENV=production && node server.js",
     "build": "npm run build:engine",
     "test": "echo \"Error: no test specified\" && exit 1",
     "develop": "gulp build",
@@ -16,6 +17,8 @@
   "license": "UNLICENSED",
   "devDependencies": {},
   "dependencies": {
-    "express": "^4.16.3"
+    "dotenv": "^8.2.0",
+    "express": "^4.16.3",
+    "mysql": "^2.18.1"
   }
 }

@@ -54,7 +54,7 @@ export default class Progress extends HTMLElement {
     }
 
     attributeChangedCallback() {
-        console.log('wow')
+        //console.log('wow')
         //console.log(this.addProgress())
         //this.shadowRoot.querySelector('.progress').replaceWith(this.addProgress())
         this.addProgress()

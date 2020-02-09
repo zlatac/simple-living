@@ -41,7 +41,8 @@ export default class Registration extends HTMLElement {
 		];
 		this.nextButton = undefined;
 		this.skipButton = undefined;
-		
+		this.errorMessage = undefined;
+
 		this.childComponents.forEach((item) => utils.defineCustomElements(item.component, item.name))
 		const template = document.querySelector('#app-registeration').innerHTML
 		const shadow = this.attachShadow({mode: 'open'})
@@ -55,6 +56,7 @@ export default class Registration extends HTMLElement {
 		this.setProgress()
 		this.nextButton = this.shadowRoot.querySelector('button[name="next"]')
 		this.skipButton = this.shadowRoot.querySelector('button[name="skip"]')
+		this.errorMessage = this.shadowRoot.querySelector('.error-message')
 		this.nextButton.classList.add('hide')
 		this.nextButton.addEventListener('click', this.goToNextForm.bind(this))
 		this.skipButton.addEventListener('click', this.goToNextForm.bind(this, true))
@@ -63,16 +65,23 @@ export default class Registration extends HTMLElement {
 	async goToNextForm(skip=false) {
 		let elem;
 		if (this.isLastIndex) {
+			this.nextButton.setAttribute('disabled', 'disabled')
+			this.errorMessage.classList.add('hide')
 			console.log('we are submitting data', this.formData.map(i => i.value))
 			const form = {}
 			this.formData.forEach(i => form[i.name] = i.value)
-			await fetch('/api', {
+			const response = await fetch('/api', {
 				body: JSON.stringify(form),
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				}
 			})
+			if (response.status !== 200) {
+				this.errorMessage.classList.remove('hide')
+				this.nextButton.removeAttribute('disabled')
+				return
+			}
 			location.hash = '/post-register'
 			return
 		}
