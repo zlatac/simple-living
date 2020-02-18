@@ -1,7 +1,8 @@
 import Home from '../components/Home.mjs'
-import PreRegistration from '../components/PreRegistration.mjs'
-import PostRegistration from '../components/PostRegistration.mjs'
 import Registration from '../components/Registration.mjs'
+const PreRegistration = '../components/PreRegistration.mjs'
+const PostRegistration = '../components/PostRegistration.mjs'
+
 
 export default class RouterView extends HTMLElement {
 	constructor() {
@@ -14,12 +15,12 @@ export default class RouterView extends HTMLElement {
 			},
 			{
 				name: '/pre-register',
-				component: PreRegistration,
+				dynamicComponent: PreRegistration,
 				define: 'app-pre-register'
 			},
 			{
 				name: '/post-register',
-				component: PostRegistration,
+				dynamicComponent: PostRegistration,
 				define: 'app-post-register'
 			},
 			{
@@ -35,7 +36,7 @@ export default class RouterView extends HTMLElement {
 		window.addEventListener('hashchange', this.setupRoute.bind(this))
 	}
 
-	setupRoute() {
+	async setupRoute() {
 		const hash = window.location.hash.replace('#','');
 		const hashExists = this.routes.find((route) => route.name === hash)
 		if (hashExists !== undefined) {
@@ -43,6 +44,11 @@ export default class RouterView extends HTMLElement {
 				this.innerHTML = hashExists.template
 				customElements.define(hashExists.define, hashExists.component)
 				return
+			}
+			// Get dynamic imports
+			if ('dynamicComponent' in hashExists && !('component' in hashExists)) {
+				const component = await import(hashExists.dynamicComponent)
+				hashExists.component = component.default
 			}
 			this.innerHTML = `<${hashExists.define}></${hashExists.define}>`
 			if (customElements.get(hashExists.define) === undefined) {
