@@ -1,0 +1,51 @@
+/* Components with no device class means its visible on all devices */
+/* .mobile (visible on mobile only) */
+/* .tablet (visible on tablet only) */
+/* .desktop (visible on desktop only) */
+/* .tablet-desktop (visible on both tablet & desktop). Don't use ".tablet.desktop" */
+/* .mobile-tablet (visible on both mobile & tablet). Don't use ".mobile.tablet" */
+/* .mobile-desktop (visible on both mobile & desktop). Don't use ".mobile.desktop" */
+
+/* For mobile phone */
+@media only screen and (max-width: 760px) {
+  .desktop {
+    display: none !important
+  }
+
+  .tablet {
+    display: none !important
+  }
+
+  .tablet-desktop {
+    display: none !important
+  }
+}
+
+/* For tablet */
+@media only screen and (min-width: 761px) and (max-width: 1279px) {
+  .mobile {
+    display: none !important
+  }
+
+  .desktop {
+    display: none !important
+  }
+
+  .mobile-desktop {
+    display: none !important
+  }
+}
+/* For desktop */
+@media only screen and (min-width: 1280px) {
+  .mobile {
+    display: none !important
+  }
+
+  .tablet {
+    display: none !important
+  }
+
+  .mobile-tablet {
+    display: none !important
+  }
+}
