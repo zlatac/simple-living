@@ -6,16 +6,22 @@ export default class PostRegistration extends HTMLElement {
 		shadow.innerHTML = template
 	}
 
-	// connectedCallback() {
-	// 	const elem = this.shadowRoot.querySelector('button')
-	// 	elem.addEventListener('click', async () => {
-	// 		try {
-	// 			await navigator.share('fuck you')
-	// 		} catch (error) {
-	// 			console.error(new Error(error))
-	// 		}
-			
-	// 	})
-	// }
+	connectedCallback() {
+		const elem = this.shadowRoot.querySelector('button')
+		elem.addEventListener('click', async () => {
+			try {
+				if ('share' in navigator) {
+					await navigator.share({
+						title: 'Slash The Rent',
+						text: 'Find the perfect roommate & save 50% on rent today',
+						url: window.location.origin
+					})
+				}
+				
+			} catch (error) {
+				console.error(new Error(error))
+			}
+		})
+	}
 
 }
