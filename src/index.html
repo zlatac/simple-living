@@ -366,12 +366,13 @@
 				}
 			</style>
 			<div class="container">
-				<h1>Get Invited</h1>
+				<h1>Get Invited </h1>
 				<div class="my-card animated slideInUp">
-					<app-progress current="3" max="5"></app-progress>
+				<app-progress current="3" max="5"></app-progress>  
 					<input class="hide" type="text" name="full-name" placeholder="Name (First & Last)">
 					<input class="hide" type="email" name="email" placeholder="Email">
 					<input class="hide" type="tel" name="phone" placeholder="Phone (Whatsapp Notification)">
+                 
 					<select name="industry" class="hide" placeholder="Industry">
 						<option value="" disabled selected>Industry</option>
 						<option value="tech">Information Technology</option>
@@ -402,6 +403,7 @@
 						<button name="next" class="animated zoomIn">Next</button>
 					</div>
 					<div class="error-message hide">Hmm.. Something went wrong please submit again</div>
+                    
 				</div>
 			</div>
 		</template>
@@ -430,6 +432,98 @@
 				<div class="item"></div>
 			</div>
 		</template>
+        
+       <template id="app-card">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+			<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script> -->
+			<style>
+				.container {
+					width: var(--width);
+					height: var(--height);
+					background-color: var(--background-color);
+				}
+				h1 {
+					margin-top: 0;
+					text-align: center;
+				}
+				.my-card {
+					margin: 0 7%;
+					height: 300px;
+					box-shadow: var(--box-shadow);
+					display: flex;
+					flex-direction: column;
+				}
+				button {
+					width: 90px;
+					height: 40px;
+					border: 0;
+					background-color: inherit;
+					box-shadow: 6px 7px 6px #c6c6c6, -6px -7px 6px #ececec;
+					text-transform: capitalize;
+					cursor: pointer;
+					border-radius: 2px;
+				}
+				button:focus, button:hover {
+					box-shadow: 0px 4px 9px #cacaca, -4px -2px 9px #fdfdfd;
+				}
+				app-progress {
+					margin-bottom: 40px;
+					padding: 0px 41px;
+					margin-top: 10px;
+				}
+				.buttons {
+					margin: 20px 0;
+					display: flex;
+					justify-content: space-evenly;
+				}
+				input, select {
+					border: 0;
+					background:#d5d5d5;
+					box-shadow: var(--box-shadow);
+					margin: 20px;
+					border-radius: 20px;
+					height: 28px;
+					padding-left: 20px;
+					width: 80%;
+					align-self: center;
+				}
+				div[name="city"] {
+					display: flex;
+					flex-direction: column;
+				}
+				.hide, div[name="city"].hide {
+					display: none
+				}
+				.error {
+					background-color: #eaacac;
+				}
+				.error-message {
+					text-align: center;
+    			padding: 0 20px;
+				}
+				@media screen and (min-width: 1080px) {
+					.my-card {
+						margin: 5% 34%;
+					}
+					input, select {
+						height: 42px
+					}
+				}
+				@media screen and (min-width: 500px)and (max-width: 1024px) {
+					.my-card {
+						margin: 5% 25%;
+					}
+				}
+			</style>
+            <div class="container">
+                <div class="my-card animated slideInUp">
+                <slot name="cardInput"></slot>
+            </div>
+            </div>
+
+      </template>
+        
 		<svg id="logo" version="1.1" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="80 67 58 167">
 			<g>
 				<g id="strokes" transform="matrix(.20042 0 0 .17946 -131.56 37.772)">
