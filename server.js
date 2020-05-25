@@ -18,7 +18,9 @@ const databaseConnectionOptions = {
     user: process.env.USER,
     password: process.env.PASSWORD,
     database : process.env.DATABASE,
-    port: process.env.DB_PORT
+    port: process.env.DB_PORT,
+    multipleStatements: true
+    
 };
 
 console.log(databaseConnectionOptions)
@@ -26,6 +28,56 @@ console.log(databaseConnectionOptions)
 app.get('/', function (req, res) {
      res.sendFile(__dirname + '/src/index.html');
 });
+
+//Marketing endpoint
+app.get('/marketing', function(req,res){
+    const con = mysql.createConnection(databaseConnectionOptions);
+    var today= new Date();
+    //Starting date of this week
+    var thisWeek = new Date();
+    thisWeek.setDate(today.getDate()-today.getDay());
+    //date from 2 weeks ago
+    var _2weeks = new Date();
+    _2weeks.setDate(today.getDate()-14);
+    //this month start date
+    var thismonth = new Date();
+    thismonth.setDate(1);
+    //last month start date
+    var lastmonth = new Date();
+    lastmonth.setDate(1);
+    lastmonth.setMonth(today.getMonth()-1);
+    //Get all registrations
+    var query = "SELECT COUNT(*) as total FROM str_register; ";
+    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +thisWeek.toISOString().slice(0,10) +"';";
+    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +_2weeks.toISOString().slice(0,10) +"' AND created_at < '"+today.toISOString().slice(0,10)+ "';";
+    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +thismonth.toISOString().slice(0,10) +"';";
+    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +lastmonth.toISOString().slice(0,10) +"' AND created_at < '"+ thismonth.toISOString().slice(0,10) +"';";
+
+    con.query(query,(err,results)=>{
+        try{
+            if(err){res.send(err);return;}
+            resultArray = JSON.parse(JSON.stringify(results));
+            totals = {
+                total : resultArray[0][0].total,
+                totalWeek : resultArray[1][0].total,
+                total2weeks : resultArray[2][0].total,
+                totalmonth : resultArray[3][0].total,
+                totalLastMonth : resultArray[4][0].total
+                }
+            res.status(200);
+            res.send(totals);
+            return;
+        }catch(error){
+            console.warn(new Error(error));
+        }
+        finally{
+            con.end();
+        }
+    });
+return;
+})
+
+
 
 app.post('/api', function (req, res) {
     const name = req.body.name;
