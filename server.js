@@ -37,21 +37,21 @@ app.get('/marketing', function(req,res){
     var thisWeek = new Date();
     thisWeek.setDate(today.getDate()-today.getDay());
     //date from 2 weeks ago
-    var _2weeks = new Date();
-    _2weeks.setDate(today.getDate()-14);
+    var twoWeeks = new Date();
+    twoWeeks.setDate(today.getDate()-14);
     //this month start date
-    var thismonth = new Date();
-    thismonth.setDate(1);
+    var thisMonth = new Date();
+    thisMonth.setDate(1);
     //last month start date
-    var lastmonth = new Date();
-    lastmonth.setDate(1);
-    lastmonth.setMonth(today.getMonth()-1);
+    var lastMonth = new Date();
+    lastMonth.setDate(1);
+    lastMonth.setMonth(today.getMonth()-1);
     //Get all registrations
     var query = "SELECT COUNT(*) as total FROM str_register; ";
     query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +thisWeek.toISOString().slice(0,10) +"';";
-    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +_2weeks.toISOString().slice(0,10) +"' AND created_at < '"+today.toISOString().slice(0,10)+ "';";
-    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +thismonth.toISOString().slice(0,10) +"';";
-    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +lastmonth.toISOString().slice(0,10) +"' AND created_at < '"+ thismonth.toISOString().slice(0,10) +"';";
+    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +twoWeeks.toISOString().slice(0,10) +"' AND created_at < '"+today.toISOString().slice(0,10)+ "';";
+    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +thisMonth.toISOString().slice(0,10) +"';";
+    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +lastMonth.toISOString().slice(0,10) +"' AND created_at < '"+ thisMonth.toISOString().slice(0,10) +"';";
 
     con.query(query,(err,results)=>{
         try{
@@ -60,8 +60,8 @@ app.get('/marketing', function(req,res){
             totals = {
                 total : resultArray[0][0].total,
                 totalWeek : resultArray[1][0].total,
-                total2weeks : resultArray[2][0].total,
-                totalmonth : resultArray[3][0].total,
+                totalTwoWeeks : resultArray[2][0].total,
+                totalMonth : resultArray[3][0].total,
                 totalLastMonth : resultArray[4][0].total
                 }
             res.status(200);
