@@ -33,6 +33,7 @@ app.get('/', function (req, res) {
 //Marketing endpoint
 app.get('/marketing', function(req,res){
     const con = mysql.createConnection(databaseConnectionOptions);
+    const date_time_format = "YYYY-MM-DD hh:mm:ss";
     var today= moment.utc();
     //Starting date of this week
     var thisWeek = today.startOf("week");
@@ -44,10 +45,10 @@ app.get('/marketing', function(req,res){
     var lastMonth = thisMonth.clone().subtract(1, "month");
     // //Get all registrations
     var query = "SELECT COUNT(*) as total FROM str_register; ";
-    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${thisWeek.format("YYYY-MM-DD hh:mm:ss")}';`;
-    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${twoWeeks.format("YYYY-MM-DD hh:mm:ss")}' AND created_at < '${thisWeek.format("YYYY-MM-DD hh:mm:ss")}';`;
-    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${thisMonth.format("YYYY-MM-DD hh:mm:ss")}';`;
-    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${lastMonth.format("YYYY-MM-DD hh:mm:ss")}' AND created_at < '${thisMonth.format("YYYY-MM-DD hh:mm:ss")}';`;
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${thisWeek.format(date_time_format)}';`;
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${twoWeeks.format(date_time_format)}' AND created_at < '${thisWeek.format(date_time_format)}';`;
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${thisMonth.format(date_time_format)}';`;
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${lastMonth.format(date_time_format)}' AND created_at < '${thisMonth.format(date_time_format)}';`;
 
     con.query(query,(err,results)=>{
         try{
@@ -65,6 +66,7 @@ app.get('/marketing', function(req,res){
             
         }catch(error){
             console.warn(new Error(error));
+            res.sendStatus(500);
         }
         finally{
             con.end();
