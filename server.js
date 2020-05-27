@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path')
 var mysql = require('mysql');
 var app = express();
+var moment = require('moment');
 var server = require('http').Server(app);
 //var querystring = require('querystring');
 if (process.env.NODE_ENV !== 'production') {
@@ -32,26 +33,21 @@ app.get('/', function (req, res) {
 //Marketing endpoint
 app.get('/marketing', function(req,res){
     const con = mysql.createConnection(databaseConnectionOptions);
-    var today= new Date();
+    var today= moment.utc();
     //Starting date of this week
-    var thisWeek = new Date();
-    thisWeek.setDate(today.getDate()-today.getDay());
+    var thisWeek = today.startOf("week");
     //date from 2 weeks ago
-    var twoWeeks = new Date();
-    twoWeeks.setDate(today.getDate()-14);
+    var twoWeeks = thisWeek.clone().subtract(2,"week");
     //this month start date
-    var thisMonth = new Date();
-    thisMonth.setDate(1);
+    var thisMonth = today.startOf("month");
     //last month start date
-    var lastMonth = new Date();
-    lastMonth.setDate(1);
-    lastMonth.setMonth(today.getMonth()-1);
-    //Get all registrations
+    var lastMonth = thisMonth.clone().subtract(1, "month");
+    // //Get all registrations
     var query = "SELECT COUNT(*) as total FROM str_register; ";
-    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +thisWeek.toISOString().slice(0,10) +"';";
-    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +twoWeeks.toISOString().slice(0,10) +"' AND created_at < '"+today.toISOString().slice(0,10)+ "';";
-    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +thisMonth.toISOString().slice(0,10) +"';";
-    query+= "SELECT COUNT(*) as total FROM str_register WHERE created_at >= '" +lastMonth.toISOString().slice(0,10) +"' AND created_at < '"+ thisMonth.toISOString().slice(0,10) +"';";
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${thisWeek.format("YYYY-MM-DD hh:mm:ss")}';`;
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${twoWeeks.format("YYYY-MM-DD hh:mm:ss")}' AND created_at < '${thisWeek.format("YYYY-MM-DD hh:mm:ss")}';`;
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${thisMonth.format("YYYY-MM-DD hh:mm:ss")}';`;
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${lastMonth.format("YYYY-MM-DD hh:mm:ss")}' AND created_at < '${thisMonth.format("YYYY-MM-DD hh:mm:ss")}';`;
 
     con.query(query,(err,results)=>{
         try{
@@ -66,7 +62,7 @@ app.get('/marketing', function(req,res){
                 }
             res.status(200);
             res.send(totals);
-            return;
+            
         }catch(error){
             console.warn(new Error(error));
         }
@@ -74,7 +70,7 @@ app.get('/marketing', function(req,res){
             con.end();
         }
     });
-return;
+
 })
 
 
