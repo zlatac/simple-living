@@ -459,21 +459,34 @@
         
         <template id="app-button">
             <style>
-                button {
-                        background-color: var(--primary-background);
-                        color: white; 
-                        text-align: center;
-                        padding: 18px 25px;
-                        border-radius: 5px;
-                        font-weight: 500;
-                        margin-top: 50px;
-                        border-style: solid; 
-                        border-width: 1px;
-                        border-color: white;
-                    }
+                button{
+                    background-color: var(--primary-background);
+                    color: white; 
+                    text-align: center;
+                    padding: 16px 50px;
+                    border-width: 1px;
+                    margin-top: 50px;
+                    border-style: solid; 
+                    font-weight: 500;
+                    font-size: 12px;
+			
+                }
+                
+                .round{
+                    background-color: var(--primary-background);
+                    color: white; 
+                    text-align: center;
+                    padding: 40px 40px;
+                    border-width: 1px;
+                    margin-top: 50px;
+                    border-style: solid; 
+                    font-weight: 500;
+                    font-size: 12px;
+                    border-radius: 50%;
+                }
             </style>
             <div>
-                <button> <slot name="default"></slot></button>
+                <button><slot name="default"></slot></button>
             </div>
             
         </template>
