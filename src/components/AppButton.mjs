@@ -12,8 +12,7 @@ static get observedAttributes() {
         const elem = this.shadowRoot.querySelector('.change-type')
         elem.classList.add(this.type)
         console.log(this.type)
-        //dom method allows you to add a new element. New child element to parent element
-        //instence of the custom element - the class (shadowroot). 
+        
     }
     
  get type(){
