@@ -20,6 +20,9 @@ static get observedAttributes() {
         if(type) {
             return type    
         }
+    
+        return 'default'
+
  }
  
 }
