@@ -36,11 +36,11 @@ app.get('/marketing', function(req,res){
     const date_time_format = "YYYY-MM-DD hh:mm:ss";
     var today= moment.utc();
     //Starting date of this week
-    var thisWeek = today.startOf("week");
+    var thisWeek = today.clone().startOf("week");
     //date from 2 weeks ago
     var twoWeeks = thisWeek.clone().subtract(2,"week");
     //this month start date
-    var thisMonth = today.startOf("month");
+    var thisMonth = today.clone().startOf("month");
     //last month start date
     var lastMonth = thisMonth.clone().subtract(1, "month");
     // //Get all registrations
