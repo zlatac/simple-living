@@ -19,9 +19,7 @@ const databaseConnectionOptions = {
     user: process.env.USER,
     password: process.env.PASSWORD,
     database : process.env.DATABASE,
-    port: process.env.DB_PORT,
-    multipleStatements: true
-    
+    port: process.env.DB_PORT, 
 };
 
 console.log(databaseConnectionOptions)
@@ -32,8 +30,12 @@ app.get('/', function (req, res) {
 
 //Marketing endpoint
 app.get('/marketing', function(req,res){
-    const con = mysql.createConnection(databaseConnectionOptions);
+    const con = mysql.createConnection({
+        ...databaseConnectionOptions,
+        multipleStatements: true
+    });
     const date_time_format = "YYYY-MM-DD hh:mm:ss";
+    const dummy = 'AND dummy = 0'
     var today= moment.utc();
     //Starting date of this week
     var thisWeek = today.clone().startOf("week");
@@ -44,11 +46,11 @@ app.get('/marketing', function(req,res){
     //last month start date
     var lastMonth = thisMonth.clone().subtract(1, "month");
     // //Get all registrations
-    var query = "SELECT COUNT(*) as total FROM str_register; ";
-    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${thisWeek.format(date_time_format)}';`;
-    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${twoWeeks.format(date_time_format)}' AND created_at < '${thisWeek.format(date_time_format)}';`;
-    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${thisMonth.format(date_time_format)}';`;
-    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${lastMonth.format(date_time_format)}' AND created_at < '${thisMonth.format(date_time_format)}';`;
+    var query = "SELECT COUNT(*) as total FROM str_register WHERE dummy = 0; ";
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${thisWeek.format(date_time_format)}' ${dummy};`;
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${twoWeeks.format(date_time_format)}' AND created_at < '${thisWeek.format(date_time_format)}' ${dummy};`;
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${thisMonth.format(date_time_format)}' AND dummy = 0;`;
+    query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${lastMonth.format(date_time_format)}' AND created_at < '${thisMonth.format(date_time_format)}' ${dummy};`;
 
     con.query(query,(err,results)=>{
         try{

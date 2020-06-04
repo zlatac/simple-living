@@ -19,6 +19,7 @@ CREATE TABLE `str_register` (
   `living_status` varchar(50) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `email_intro` tinyint(1) NOT NULL
+  `dummy` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
