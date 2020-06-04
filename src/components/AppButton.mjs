@@ -21,7 +21,7 @@ static get observedAttributes() {
             return type    
         }
     
-        return 'default'
+        return 'button'
 
  }
  
