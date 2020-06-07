@@ -17,17 +17,21 @@ export default class Marketing extends HTMLElement {
                     color: white;
                     border: 1px solid white;
                     padding-left: 5px;
-                    font-size: 6vw
+                    font-size: 1.8em
+                }
+                .build-react div {
+                    display: flex;
+                    flex-direction: column;
                 }
                 .build-react button {
-                    float: right;
-                    margin: 10px;
+                    margin: 0 2% 18px;
                     background: none;
                     color: white;
                     border-style: none;
                     width: 60px;
                     height: 60px;
                     font-size: 50px;
+                    align-self: flex-end;
                 }
                 button.spin {
                     animation: spin .72s infinite;
