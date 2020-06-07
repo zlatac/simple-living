@@ -17,6 +17,7 @@ export default class Marketing extends HTMLElement {
                     color: white;
                     border: 1px solid white;
                     padding-left: 5px;
+                    font-size: 6vw
                 }
                 .build-react button {
                     float: right;
@@ -31,6 +32,9 @@ export default class Marketing extends HTMLElement {
                 button.spin {
                     animation: spin .72s infinite;
                     color: lightgrey
+                }
+                button.error {
+                    color: red;
                 }
                 @keyframes spin {
                     0% {
@@ -85,13 +89,15 @@ class ReactMarketing extends React.Component {
                 totalMonth : 'This Month',
                 totalLastMonth : 'Last Month'
             },
-            spin: false
+            spin: false,
+            error: false
             
         }
     }
     render() {
         const output = []
-        const className = this.state.spin ? 'spin' : ''
+        let className = this.state.spin ? 'spin' : ''
+        className += this.state.error ? ' error' : ''
         for(let x in this.state.marketingValues) {
             output.push(
                 createElement(
@@ -114,15 +120,15 @@ class ReactMarketing extends React.Component {
         this.getAnalytics()
     }
 
-    getAnalytics = () => {
-        this.setState({
-            marketingValues: {
-                total : 78,
-                totalWeek : 123,
-                totalTwoWeeks : 45,
-                totalMonth : 78,
-                totalLastMonth : 0
-            }
-        })
+    getAnalytics = async() => {
+        try {
+            this.setState({spin: true, error: false})
+            const response = await fetch('/marketing')
+            const data = await response.json()
+            this.setState({marketingValues: data})
+            this.setState({spin: false})
+        } catch (error) {
+            this.setState({spin: false, error: true})
+        }
     }
 }
