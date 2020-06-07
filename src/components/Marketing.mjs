@@ -97,6 +97,7 @@ class ReactMarketing extends React.Component {
             error: false
             
         }
+        this.getAnalytics = this.getAnalytics.bind(this)
     }
     render() {
         const output = []
@@ -124,7 +125,7 @@ class ReactMarketing extends React.Component {
         this.getAnalytics()
     }
 
-    getAnalytics = async() => {
+    async getAnalytics() {
         try {
             this.setState({spin: true, error: false})
             const response = await fetch('/marketing')
