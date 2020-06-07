@@ -2,6 +2,7 @@ import Home from '../components/Home.mjs'
 import Registration from '../components/Registration.mjs'
 const PreRegistration = '../components/PreRegistration.mjs'
 const PostRegistration = '../components/PostRegistration.mjs'
+const Marketing = '../components/Marketing.mjs'
 
 
 export default class RouterView extends HTMLElement {
@@ -27,6 +28,11 @@ export default class RouterView extends HTMLElement {
 				name: '/register',
 				component: Registration,
 				define: 'app-register'
+			},
+			{
+				name: '/marketing',
+				dynamicComponent: Marketing,
+				define: 'app-marketing'
 			}
 		]
 	}
