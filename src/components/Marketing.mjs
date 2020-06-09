@@ -19,6 +19,11 @@ export default class Marketing extends HTMLElement {
                     padding-left: 5px;
                     font-size: 1.8em
                 }
+                .build-react {
+                    overflow-y: scroll;
+                    width: 100%;
+                    height: 100%;
+                }
                 .build-react div {
                     display: flex;
                     flex-direction: column;
@@ -35,17 +40,21 @@ export default class Marketing extends HTMLElement {
                 }
                 button.spin {
                     animation: spin .72s infinite;
-                    color: lightgrey
+                    color: lightgrey;
+                    border: 2px dotted;
+                    border-radius: 50%;
+                    font-size: 30px;
+
                 }
                 button.error {
                     color: red;
                 }
                 @keyframes spin {
                     0% {
-                        transform: rotate(0Deg)
+                        transform: rotate(0Deg);
                     }
                     100% {
-                        transform: rotate(360Deg)
+                        transform: rotate(360Deg);
                     }
                 }
                   
@@ -80,7 +89,10 @@ class ReactMarketing extends React.Component {
         super(props)
         this.state = {
             marketingValues: {
-                total : 0,
+                total : {
+                    value: 0,
+                    cities: [{city: 'Toronto', value: 34}, {city: 'oakville', value: 64}]
+                },
                 totalWeek : 0,
                 totalTwoWeeks : 0,
                 totalMonth : 0,
@@ -104,11 +116,26 @@ class ReactMarketing extends React.Component {
         let className = this.state.spin ? 'spin' : ''
         className += this.state.error ? ' error' : ''
         for(let x in this.state.marketingValues) {
+            let elem = createElement('div', {slot: 'default'}, `${this.state.marketingTitle[x]}: ${this.state.marketingValues[x]}`);
+            if (x === 'total') {
+                elem = createElement(
+                    'div',
+                    {slot: 'default'},
+                    createElement('div', null , `${this.state.marketingTitle[x]}: ${this.state.marketingValues[x].value}`),
+                    createElement(
+                        'details',
+                        null,
+                        createElement('summary', null, 'Cities'),
+                        ...this.state.marketingValues[x].cities.map(item => createElement('div', null, `${item.city}: ${item.value}`))
+                    )
+                )
+            }
+
             output.push(
                 createElement(
                     'app-card',
                     null,
-                    createElement('div', {slot: 'default'}, `${this.state.marketingTitle[x]}: ${this.state.marketingValues[x]}`)
+                    elem
                 )
             )
         }
@@ -122,7 +149,7 @@ class ReactMarketing extends React.Component {
     }
 
     componentDidMount() {  
-        this.getAnalytics()
+        //this.getAnalytics()
     }
 
     async getAnalytics() {
