@@ -1,5 +1,3 @@
-import Logo from './AppButton.mjs'; 
-
 export default class PostRegistration extends HTMLElement {
 	constructor() {
 		super()

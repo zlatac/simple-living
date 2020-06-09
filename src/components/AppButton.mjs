@@ -10,14 +10,12 @@ static get observedAttributes() {
         const shadow = this.attachShadow({mode: 'open'})
         shadow.innerHTML = template
         const elem = this.shadowRoot.querySelector('.change-type')
-        elem.classList.add(this.type)
-        console.log(this.type)
-        
+        elem.classList.add(this.type)        
     }
     
  get type(){
     let type = this.getAttribute('type')
-        if(type) {
+        if(type == 'round') {
             return type    
         }
     
