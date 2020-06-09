@@ -51,7 +51,7 @@ app.get('/marketing', function(req,res){
     query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${lastWeek.format(date_time_format)}' AND created_at < '${thisWeek.format(date_time_format)}' ${dummy};`;
     query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${thisMonth.format(date_time_format)}' AND dummy = 0;`;
     query+= `SELECT COUNT(*) as total FROM str_register WHERE created_at >= '${lastMonth.format(date_time_format)}' AND created_at < '${thisMonth.format(date_time_format)}' ${dummy};`;
-    query+= `SELECT city, COUNT(city) as value FROM str_register WHERE dummy = 0;`;
+    query+= `SELECT city, COUNT(city) as value FROM str_register WHERE dummy = 0 GROUP BY city;`;
 
     con.query(query,(err,results)=>{
         try{

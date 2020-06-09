@@ -37,6 +37,7 @@ export default class Marketing extends HTMLElement {
                     height: 60px;
                     font-size: 50px;
                     align-self: flex-end;
+                    transition: font-size .5s;
                 }
                 button.spin {
                     animation: spin .72s infinite;
@@ -56,6 +57,9 @@ export default class Marketing extends HTMLElement {
                     100% {
                         transform: rotate(360Deg);
                     }
+                }
+                details {
+                    text-transform: capitalize
                 }
                   
             </style>
@@ -91,17 +95,17 @@ class ReactMarketing extends React.Component {
             marketingValues: {
                 total : {
                     value: 0,
-                    cities: [{city: 'Toronto', value: 34}, {city: 'oakville', value: 64}]
+                    cities: [{city: 'Toronto', value: 0}]
                 },
                 totalWeek : 0,
-                totalTwoWeeks : 0,
+                totalLastWeek : 0,
                 totalMonth : 0,
                 totalLastMonth : 0
             },
             marketingTitle: {
                 total : 'Total',
                 totalWeek : 'This Week',
-                totalTwoWeeks : 'Two weeks ago',
+                totalLastWeek : 'Last Week',
                 totalMonth : 'This Month',
                 totalLastMonth : 'Last Month'
             },
@@ -149,7 +153,7 @@ class ReactMarketing extends React.Component {
     }
 
     componentDidMount() {  
-        //this.getAnalytics()
+        this.getAnalytics()
     }
 
     async getAnalytics() {
