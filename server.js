@@ -79,7 +79,29 @@ app.get('/marketing', function(req,res){
         }
     });
 
-})
+});
+//Change the query string to test whatever you want from the database
+app.get('/test', function (req, res){
+    const con = mysql.createConnection({
+        ...databaseConnectionOptions,
+        multipleStatements: true
+    });
+    var query = "SELECT * FROM str_options";
+    con.query(query, (err,results)=>{
+        try{
+            if(err){res.send(err);return;}
+            resultArray = JSON.parse(JSON.stringify(results));
+            res.send(resultArray);
+        }
+        catch(error){
+            console.warn(new Error(error));
+            res.sendStatus(500);
+        }
+        finally{
+            con.end();
+        }
+    });
+});
 
 
 
