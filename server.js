@@ -14,6 +14,13 @@ server.listen(app.get('port'), () => {
     console.log(`Server is listening on port ${app.get('port')}`);
 });
 
+app.get('*',function(req,res,next){
+    if(req.headers['x-forwarded-proto']!='https' && process.env.NODE_ENV === 'production')
+        res.redirect(['https://', req.get('Host'), req.url].join(''))
+    else
+        next() /* Continue to other routes if we're not redirecting */
+})
+
 const databaseConnectionOptions = {
     host: process.env.HOST,
     user: process.env.USER,
